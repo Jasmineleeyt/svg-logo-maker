@@ -1,7 +1,9 @@
+// Includes packages/file needed for this application
 const fs = require("fs");
 const inquirer = require("inquirer");
 const {Circle, Square, Triangle } = require("./lib/shapes");
 
+// Creates an array of questions for user input
 inquirer
   .prompt([
     {
@@ -26,6 +28,8 @@ inquirer
       message: "What color would you like your shape to be?",
     },
   ])
+
+  // Creates a function to write svg code based on the user's input
   .then(response => {
 
     var svgCode ="";
