@@ -1,6 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const {} = require("./lib/shapes");
+const {Circle, Square, Triangle } = require("./lib/shapes");
 
 inquirer
   .prompt([
@@ -28,9 +28,25 @@ inquirer
   ])
   .then(response => {
 
-    fs.writeFile("./examples/logo.svg", data, () => {
-      // TO DO: add function to create svg file
+    var svgCode ="";
 
+    let selectedShape;
+    if (response.shapes === "circle"){
+      selectedShape = new Circle(response.characters, response.text_color);
+    }
+    else if (response.shapes === "triangle"){
+      selectedShape = new Triangle(response.characters, response.text_color);
+    }
+    else if (response.shapes === "square"){
+      selectedShape = new Square(response.characters, response.text_color);
+    }
+
+    selectedShape.setColor(response.shape_color)
+
+    svgCode += selectedShape.render(); 
+
+    fs.writeFile("./examples/logo.svg", svgCode, () => {
+      
       console.log("Generated logo.svg");
     });
   });
